@@ -1,0 +1,11 @@
+Objects:
+t = growing tree
+    - Grows in 8+(0-4) years
+T = grown tree
+    - Gives one point
+g = grass
+    - If 6+/8 surrounding tiles are green for 1+(0-4) years will turn into 't'
+d = dirt
+    - If 1+/8 surrounding tiles are green for 1+(0-4) years will turn into (g)
+s = stone
+    - Only non-natural tile
