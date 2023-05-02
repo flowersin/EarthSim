@@ -17,6 +17,8 @@ GRASS = {
         'natural': True
         }
 
+
+
 # A list of tile types, couldn't find a better way to do this
 TILES = [STONE, GRASS]
 
@@ -40,17 +42,31 @@ def print_grid_symbols(grid):
             print(grid[row][column]['symbol'], end='')
         print('')
 
-# supposed to return a list of the surrounding tile types, haven't found a good way to implement this yet
-def check_surrounding_tiles(grid, x, y):
-    pass     
+# supposed to return a list of the surrounding tile types, in progress
+def check_surrounding_tiles(grid, base_x, base_y):
+    surrounding_tiles = []
+    for x in range(base_x - 1, base_x + 2):
+        for y in range(base_y - 1, base_y + 2):
+            if x == base_x and y == base_y:
+                continue
+            if x < 0 or y < 0:
+                continue
+            try: 
+                surrounding_tiles.append(grid[x][y])
+            except IndexError:
+                continue
+    return surrounding_tiles
 
+# Main
 if __name__ == '__main__':
     grid = make_grid()
     for year in range(END_YEAR):
         for row in range(GRID_ROWS):
             for column in range(GRID_COLUMNS):
                 if grid[row][column] == STONE:
-                    print('This is a stone!')
+                    surrounding_tiles = check_surrounding_tiles(grid, row, column)
+                    for tile in surrounding_tiles:
+                        `
                 elif grid[row][column] == GRASS:
                     print('This is grass.')
 
