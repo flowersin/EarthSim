@@ -1,8 +1,14 @@
 # A life simulator thing
 import random
 
-GRID_ROWS = 5
-GRID_COLUMNS = 5
+GRASS_GROWTH_MIN_NATURAL = 3
+GRASS_GROWTH_CHANCE = 0.5
+
+FLOWER_CHANCE = 0.2
+
+
+GRID_ROWS = 10
+GRID_COLUMNS = 10
 
 END_YEAR = 10
 
@@ -17,7 +23,15 @@ GRASS = {
         'natural': True
         }
 
+FLOWER = {
+        'symbol': 'F',
+        'natural': True
+        }
 
+TREE = {
+        'symbol': 'T',
+        'natural': True
+        }
 
 # A list of tile types, couldn't find a better way to do this
 TILES = [STONE, GRASS]
@@ -63,12 +77,21 @@ if __name__ == '__main__':
     for year in range(END_YEAR):
         for row in range(GRID_ROWS):
             for column in range(GRID_COLUMNS):
-                if grid[row][column] == STONE:
+                if grid[row][column] == GRASS:
                     surrounding_tiles = check_surrounding_tiles(grid, row, column)
+                    
+                    natural = 0
                     for tile in surrounding_tiles:
-                        `
-                elif grid[row][column] == GRASS:
-                    print('This is grass.')
+                        if tile['natural']:
+                            natural += 1
+                    
+                    if natural >= GRASS_GROWTH_MIN_NATURAL and GRASS_GROWTH_CHANCE <= random.random():
+                        if random.random() <= FLOWER_CHANCE:
+                            grid[row][column] = FLOWER
+                        else:
+                            grid[row][column] = TREE
+
+                        
 
         # Print out results
         print('year:', year)
